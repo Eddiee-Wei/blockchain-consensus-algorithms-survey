@@ -1,6 +1,12 @@
+<p align="right">
+  <strong>Language:</strong>
+  <a href="./README.md"><img src="https://img.shields.io/badge/English-current-0969da?style=flat-square" alt="English (current)"></a>
+  <a href="./README.zh-CN.md"><img src="https://img.shields.io/badge/%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87-switch-d0d7de?style=flat-square" alt="Switch to Simplified Chinese"></a>
+</p>
+
 # Blockchain Consensus Algorithms Survey
 
-[中文](README.zh-CN.md) · [Paper PDF](paper/the-advance-of-consensus-algorithm-in-blockchain.pdf) · [Expert analysis (中文)](docs/expert-analysis.zh-CN.md) · [Sharing kit (中文)](docs/share-kit.zh-CN.md)
+[Paper PDF](paper/the-advance-of-consensus-algorithm-in-blockchain.pdf) · [Expert analysis (中文)](docs/expert-analysis.zh-CN.md) · [Sharing kit (中文)](docs/share-kit.zh-CN.md)
 
 [![DOI](https://img.shields.io/badge/DOI-10.54254%2F2755--2721%2F18%2F20230954-blue)](https://doi.org/10.54254/2755-2721/18/20230954)
 [![Applied and Computational Engineering](https://img.shields.io/badge/ACE-2023-2e8b57)](https://ace.ewapub.com/article/view/4657)
