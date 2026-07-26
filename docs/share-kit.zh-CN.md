@@ -4,7 +4,7 @@
 
 ## 30 秒介绍
 
-一张表能直接比较 PoW、PoS、PBFT 和 Raft 吗？不能，除非先说清成员关系与故障模型。PoW、PoS、DPoS 主要解决开放网络里的抗女巫和验证者选择；PBFT 是已知成员下的 Byzantine fault tolerant replication；Paxos、Raft 只容忍 crash fault。这篇 2023 年论文提供了六类机制的入门综述，我在伴读仓库里补上了这一关键分类，并用 Ethereum Gasper、Fabric SmartBFT、HotStuff、DAG-BFT 和 Avalanche 更新到 2026 年。真正的选型不是找“最快算法”，而是先定义你信任谁、要防什么故障、需要什么最终性。
+2023 年，因为对区块链和分布式共识的个人兴趣，我写了这篇综述。最初的问题很简单：没有中央协调者，分布式节点怎样对同一份账本达成一致？论文用入门方式梳理了 PoW、PoS、DPoS、PBFT、Paxos 和 Raft 的基本思想、优点、局限与应用场景。它不提出新协议，核心结论也不是哪一种机制最好，而是：先理解成员关系、故障模型和信任假设，再比较性能与取舍。伴读仓库另外提供了更严格的技术校准和 2026 年延伸阅读。
 
 ## 60 秒英文介绍
 
@@ -12,13 +12,11 @@
 
 ## GitHub / LinkedIn 短帖
 
-我整理了论文 *The advance of consensus algorithm in blockchain* 的开放获取原文、双语导读和专家更新。
+2023 年，因为对区块链和分布式共识的个人兴趣，我写了论文 *The advance of consensus algorithm in blockchain*。它从一个基础问题出发：没有中央协调者，分布式参与者如何对同一份账本达成一致？
 
-论文回顾 PoW、PoS、DPoS、PBFT、Paxos、Raft。仓库补充了一个经常被忽略但决定整个比较是否成立的前提：六类机制不在同一抽象层。PoW/PoS/DPoS 处理开放成员、抗女巫和验证者选择；PBFT 处理已知副本中的 Byzantine fault；Paxos/Raft 处理 crash fault。
+这是一篇入门综述，而不是一种新协议。论文梳理了 PoW、PoS、DPoS、PBFT、Paxos 和 Raft 的基本思想、优点、局限与应用场景。它最想传达的并不是一个统一排名，而是：共识算法没有脱离场景的“最好”方案，必须先理解假设，再比较取舍。
 
-我也逐项校准了几种常见误解：51% 指算力而非节点数；现代 PoS 不能用统一币龄规则概括；DPoS 不天然更去中心化；Raft/Paxos 不是 BFT；Solana PoH 不是独立的完整共识；Ethereum Merge 官方估计节能约 99.95%。
-
-仓库最后给出面向 2026 年的技术地图和选型框架：HotStuff、Narwhal/Tusk、Bullshark、Avalanche，以及仍在研究中的 single-slot finality。
+现在，我把论文原文、双语导读和分享素材整理成了一个独立仓库。首页保留简洁的论文介绍；更严格的协议分类、常见概念纠错，以及 HotStuff、DAG-BFT、Avalanche 等后续路线，则单独放在专家深读中。
 
 ## 微信 / 知乎长帖
 

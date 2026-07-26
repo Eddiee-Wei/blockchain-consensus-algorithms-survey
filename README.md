@@ -16,86 +16,49 @@
   <img src="assets/paper-first-page.png" width="420" alt="First page of the paper">
 </p>
 
-This repository is a bilingual companion to:
+## Why I wrote this paper
 
-> Runze Wei. “The advance of consensus algorithm in blockchain.” *Applied and Computational Engineering* 18.1 (2023): 5–15. [doi:10.54254/2755-2721/18/20230954](https://doi.org/10.54254/2755-2721/18/20230954)
+I wrote this paper in 2023 out of a personal interest in blockchain and a simple question: **how do distributed participants agree on one ledger without a central coordinator?**
 
-The article reviews Proof of Work, Proof of Stake, Delegated Proof of Stake, PBFT, Paxos, and Raft. This repository preserves that 2023 survey while adding a technically stricter taxonomy, corrections, primary sources, and a 2026 research update.
+That curiosity became a concise survey of six representative approaches often discussed in blockchain literature: Proof of Work, Proof of Stake, Delegated Proof of Stake, PBFT, Paxos, and Raft.
 
-It is a survey companion, not an implementation of a new protocol called “Advance Consensus.”
+My goal was not to propose a new protocol called “Advance Consensus.” The paper is an introductory study that organizes each approach's basic idea, strengths, limitations, and suitable use cases.
 
-## The key distinction
+## Paper
 
-The six mechanisms should not be ranked on one flat axis:
+> Runze Wei. “The advance of consensus algorithm in blockchain.” *Applied and Computational Engineering*, vol. 18, pp. 5–15, 2023. [doi:10.54254/2755-2721/18/20230954](https://doi.org/10.54254/2755-2721/18/20230954)
 
-```mermaid
-flowchart TD
-    A["Replicated agreement"] --> B["Open membership / Sybil resistance"]
-    A --> C["Permissioned state-machine replication"]
-    B --> D["PoW<br/>resource-weighted block production"]
-    B --> E["PoS<br/>stake-weighted protocol family"]
-    B --> F["DPoS<br/>stake-elected delegates"]
-    C --> G["BFT protocols<br/>PBFT, HotStuff"]
-    C --> H["Crash-fault-tolerant protocols<br/>Paxos, Raft"]
-```
+This is a review and comparison paper. It does not introduce a new consensus algorithm or provide a protocol implementation.
 
-- **PoW, PoS, and DPoS** primarily address open membership, Sybil resistance, validator selection, and chain formation.
-- **PBFT** is Byzantine-fault-tolerant state-machine replication for a known validator set.
-- **Paxos and Raft** tolerate crash faults, not arbitrary Byzantine behavior.
-- Real blockchains often compose layers. Ethereum, for example, uses stake-based validator selection together with the Gasper consensus design.
+## What the survey covers
 
-## Six mechanisms in the paper
+| Mechanism | Simple intuition |
+|---|---|
+| **Proof of Work (PoW)** | Uses verifiable computation to weight block production and make history expensive to rewrite |
+| **Proof of Stake (PoS)** | Uses staked value to select validators and hold them economically accountable |
+| **Delegated Proof of Stake (DPoS)** | Lets stakeholders elect a smaller group of delegates to produce and validate blocks |
+| **PBFT** | Lets known replicas agree despite a bounded number of Byzantine faults |
+| **Paxos** | Uses intersecting majority quorums to reach agreement under crash faults |
+| **Raft** | Provides an understandable, leader-based replicated log under crash faults |
 
-| Family | Typical membership | Fault model | Finality style | Most important caveat |
-|---|---|---|---|---|
-| PoW | Open | Adversarial resource share | Probabilistic | Security depends on hash power, not node count |
-| PoS | Open or governed validator set | Protocol-specific Byzantine/economic faults | Protocol-specific | PoS is a family, not one algorithm |
-| DPoS | Stake-elected delegates | Protocol-specific | Often fast/deterministic | Delegate concentration creates governance risk |
-| PBFT | Permissioned | Byzantine | Deterministic after commit | `3f+1` replicas tolerate `f` Byzantine faults; all-to-all communication limits scale |
-| Paxos | Permissioned | Crash fault | Deterministic | Does not tolerate Byzantine replicas |
-| Raft | Permissioned | Crash fault | Deterministic | Understandability improves engineering, not the fault model |
+The paper introduces the basic workflow of each mechanism, then compares their efficiency, energy use, fault assumptions, decentralization, and typical application settings.
 
-The detailed [consensus matrix](comparison/consensus-matrix.csv) is machine-readable.
+## The main takeaway
 
-## Corrections and 2026 update
+There is no universally “best” consensus mechanism. Each design makes a different trade-off:
 
-The original paper is useful as an accessible six-protocol overview, but several statements need tighter framing:
+- open participation usually needs a Sybil-resistance mechanism such as work or stake;
+- a smaller, known validator set can reach agreement faster, but depends more heavily on membership and governance;
+- stronger Byzantine-fault tolerance generally costs more communication than crash-fault-only replication;
+- performance numbers are meaningful only when the network, adversary, membership, and finality assumptions are stated.
 
-- A PoW “51% attack” refers to control of relevant mining power, not 51% of network nodes.
-- Coin-age reset is not a universal description of modern PoS. Ethereum’s current PoS consensus is [Gasper](https://ethereum.org/developers/docs/consensus-mechanisms/pos/gasper/), combining Casper FFG and LMD-GHOST.
-- DPoS does not automatically increase decentralization; delegate elections can concentrate operational and governance power.
-- PBFT has quadratic normal-case message exchange in the classic design and is not merely “one consensus calculation.”
-- Paxos and Raft are CFT protocols; maliciously inconsistent replicas are outside their base model.
-- ZooKeeper uses Zab rather than simply being an open-source implementation of Chubby/Paxos.
-- Current Hyperledger Fabric documentation distinguishes [Raft ordering](https://hyperledger-fabric.readthedocs.io/en/latest/orderer/ordering_service.html) from a [SmartBFT-based BFT orderer](https://hyperledger-fabric.readthedocs.io/en/latest/raft_bft_migration.html).
-- Solana’s Proof of History is a cryptographic clock/order mechanism; consensus is built with stake and Tower BFT around it.
-- Ethereum reports that the Merge reduced energy use by approximately [99.95%](https://ethereum.org/roadmap/merge/), rather than 99.5%.
+The value of the survey is not a single ranking. It is the comparison framework: **understand the assumptions first, then compare the trade-offs.**
 
-These are repository annotations made in 2026; they do not silently rewrite the 2023 paper.
+## Reading it today
 
-## How to compare a consensus design
+Consensus technology has continued to evolve since the paper was published. The six items are also not all at the same abstraction layer: PoW, PoS, and DPoS are commonly discussed as blockchain membership and validator-selection families, PBFT is Byzantine-fault-tolerant state-machine replication, while Paxos and Raft are crash-fault-tolerant replication protocols.
 
-A defensible comparison starts with the deployment assumptions:
-
-1. Is membership open, permissioned, or governed?
-2. Is the adversary crash-only or Byzantine?
-3. What network timing assumption is required for liveness?
-4. Is finality probabilistic or deterministic, and under what conditions can it revert?
-5. How is Sybil resistance supplied: computation, stake, identity, or an external admission policy?
-6. What are the message, bandwidth, storage, and verification costs?
-7. How are leaders/committees selected and rotated?
-8. What economic penalties, governance mechanisms, and recovery paths exist?
-
-Only after those questions should latency, throughput, energy, and decentralization be compared.
-
-## Beyond the original six
-
-The post-PBFT landscape includes:
-
-- [HotStuff](https://arxiv.org/abs/1803.05069): leader-based BFT with responsive operation and linear communication under its aggregation assumptions.
-- [Narwhal and Tusk](https://arxiv.org/abs/2105.11827) and [Bullshark](https://arxiv.org/abs/2201.05677): DAG-based data dissemination and ordering.
-- [Avalanche consensus](https://www.avalabs.org/whitepapers): repeated subsampled voting and metastable convergence.
-- Ethereum’s [single-slot finality research](https://ethereum.org/roadmap/single-slot-finality/): an active roadmap topic, not a deployed property to assume today.
+To keep this page faithful to the original, stricter protocol corrections and the 2026 technical context are collected separately in the [expert analysis](docs/expert-analysis.zh-CN.md). A structured comparison is available in the [consensus matrix](comparison/consensus-matrix.csv).
 
 ## Repository contents
 
