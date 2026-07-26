@@ -13,7 +13,12 @@
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC_BY_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 
 <p align="center">
-  <img src="assets/paper-first-page.png" width="420" alt="论文首页">
+  <a href="paper/the-advance-of-consensus-algorithm-in-blockchain.pdf">
+    <img src="assets/paper-first-page.png" width="720" alt="《区块链共识算法的发展》论文首页；点击打开完整论文 PDF">
+  </a>
+</p>
+<p align="center">
+  <em>点击高清首页预览，可打开完整论文 PDF。</em>
 </p>
 
 > 2023 年，我因为对区块链与分布式共识的个人兴趣，开始思考一个简单的问题：在没有中央协调者的情况下，分布式参与者如何对同一份账本达成一致？这份兴趣最终变成了这篇简短的综述。

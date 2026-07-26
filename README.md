@@ -13,7 +13,12 @@
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC_BY_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 
 <p align="center">
-  <img src="assets/paper-first-page.png" width="420" alt="First page of the paper">
+  <a href="paper/the-advance-of-consensus-algorithm-in-blockchain.pdf">
+    <img src="assets/paper-first-page.png" width="720" alt="First page of The advance of consensus algorithm in blockchain; open the complete paper PDF">
+  </a>
+</p>
+<p align="center">
+  <em>Click the high-resolution preview to open the complete paper PDF.</em>
 </p>
 
 ## Why I wrote this paper
